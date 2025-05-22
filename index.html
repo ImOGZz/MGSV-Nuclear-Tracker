@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MGSV PS4 Nuclear Stats</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #111;
+            color: #0f0;
+            text-align: center;
+            padding: 40px 10px;
+        }
+        h1 {
+            font-size: 24px;
+        }
+        .stat {
+            font-size: 36px;
+            margin: 20px 0;
+        }
+        .timestamp {
+            font-size: 14px;
+            color: #aaa;
+        }
+    </style>
+</head>
+<body>
+    <h1>MGSV PS4 Nuclear Stats</h1>
+    <div id="current" class="stat">Current Nukes: Loading...</div>
+    <div id="max" class="stat">Max Nukes: Loading...</div>
+    <div class="timestamp" id="timestamp">Last Updated: --</div>
+
+    <script>
+        async function fetchStats() {
+            try {
+                const proxyUrl = 'https://corsproxy.io/?';
+                const targetUrl = 'https://gp-prod-playstation-enforcement-mgs5.akamaized.net/ps4/statistics.json';
+                const res = await fetch(proxyUrl + encodeURIComponent(targetUrl));
+                const data = await res.json();
+                document.getElementById('current').textContent = `Current Nukes: ${data.nuclear_weapons_total}`;
+                document.getElementById('max').textContent = `Max Nukes: ${data.nuclear_weapons_max}`;
+                document.getElementById('timestamp').textContent = "Last Updated: " + new Date().toLocaleTimeString();
+            } catch (e) {
+                document.getElementById('current').textContent = "Current Nukes: Error";
+                document.getElementById('max').textContent = "Max Nukes: Error";
+                document.getElementById('timestamp').textContent = "Failed to update.";
+            }
+        }
+
+        fetchStats();
+        setInterval(fetchStats, 60000); // Update every 60 seconds
+    </script>
+</body>
+</html>
