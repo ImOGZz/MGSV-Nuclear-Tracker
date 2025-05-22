@@ -35,7 +35,7 @@
         async function fetchStats() {
             try {
                 const res = await fetch('/api/nukes');
-                const data = await res.json();
+                console.log(data); // Log the response data to the browser console
                 document.getElementById('current').textContent = `Current Nukes: ${data.nuclear_weapons_total}`;
                 document.getElementById('max').textContent = `Max Nukes: ${data.nuclear_weapons_max}`;
                 document.getElementById('timestamp').textContent = "Last Updated: " + new Date().toLocaleTimeString();
