@@ -34,9 +34,7 @@
     <script>
         async function fetchStats() {
             try {
-                const proxyUrl = 'https://corsproxy.io/?';
-                const targetUrl = 'https://gp-prod-playstation-enforcement-mgs5.akamaized.net/ps4/statistics.json';
-                const res = await fetch(proxyUrl + encodeURIComponent(targetUrl));
+                const res = await fetch('/api/nukes');
                 const data = await res.json();
                 document.getElementById('current').textContent = `Current Nukes: ${data.nuclear_weapons_total}`;
                 document.getElementById('max').textContent = `Max Nukes: ${data.nuclear_weapons_max}`;
